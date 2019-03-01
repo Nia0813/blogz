@@ -10,9 +10,9 @@
 
 {% else %}
     {% for post in blog %}
-        <h3><a href="/blog?id={{post.id}}">{{blog.title}}</a></h3>
-        <p>{{blog.body}}</p>
-        <p id="author">Pawthored by <a href="blog?user={{blog.applicant.id}}">{{blog.applicant.username}}</a></p>
+        <h3><a href="/blog?id={{post.id}}">{{post.title}}</a></h3>
+        <p>{{post.info}}</p>
+        <p id="author">Created by <a href="blog?user={{post.applicant.id}}">{{post.applicant.username}}</a></p>
     {% endfor %}
 {% endif %}
 </div>

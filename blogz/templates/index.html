@@ -7,8 +7,9 @@
 {% if users|length == 0 %}
     <p> Uh oh, no new blog! <a href="/signup">Write a blog!</a></p>
 
+{% else %}
         <ul>
-            {% for user in list_all_users %}
+            {% for user in users %}
             <li><a href="./blog?user={{user.id}}">{{user.username}}</a></li>
             {% endfor %}
         </ul>
