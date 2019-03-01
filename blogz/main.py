@@ -7,12 +7,13 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8889/blogz'
 app.config['SQLAlCHEMY_ECHO'] = True #turns on query logging
 db = SQLAlchemy(app)#connects the constructor to the app
-app_secret_key = '5546hygft67m8n'
+app_secret_key = 'za997kGcys&zP3A'
+
 class Blog(db.Model):# extends the blog class to the database model class
 
     id = db.Column(db.Integer, primary_key=True)#this will be an integer in this column unique to each blog
-    title = db.Column (db.String (150))#title of blog that is created with 150 varchar max
-    body = db.Column(db.String(1000))# the body of the blog with 1000 varchar max
+    title = db.Column (db.String (120))#title of blog that is created with 120 varchar max
+    body = db.Column(db.Text())# the body of the blog with 1000 varchar max
     applicant_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def __init__(self, title, body, applicant):
@@ -44,7 +45,7 @@ def index():
     return render_template('index.html', all_users = all_users)
 
 #blog displays post
-@app.route('/blog', methods = ['POST','GET'])
+@app.route('/blog', methods = ['GET'])
 def blog_list():
     title = "Blogs"
     if session:
@@ -97,6 +98,7 @@ def login():
         
 @app.route('/signup', methods= ['POST', 'GET'])
 def signup():
+    
     verify= ""
     password = ""
     username = ""
@@ -136,31 +138,31 @@ def signup():
                 return redirect('/newpost')
             else:
                 error_username = "Username already in use"
-return render_template('signup.html', username=username, error_username= error_username, 
-           error_pwd = error_pwd, error_verify= error_verify)
+    
+    return render_template('signup.html', username=username, error_username= error_username, error_pwd = error_pwd, error_verify= error_verify)
 
 
 
 @app.route('/newpost', methods=['POST','GET'])
 def new_blogs():
         blog_title = ""
-        blog_info = ""
+        blog_body = ""
         error_title= ""
-        error_info = ""
+        error_body = ""
         applicant = User.query.filter_by(username = session['username']).first()
 
         if request.method == 'POST':
             blog_title = request.form['blog_title']
-            blog_info = request.form['blog_info']
+            blog_body = request.form['blog_body']
 
         if blog_title == "":
             error_title = "Please enter a title"
 
-        if blog_info == "":
-            error_info= "Please write a post"
+        if blog_body == "":
+            error_body= "Please write a post"
 
-        if error_title =="" and error_info=="":
-            new_blog = Blog(blog_title, blog_info, applicant)
+        if error_title =="" and error_body == "":
+            new_blog = Blog(blog_title, blog_body, applicant)
             db.session.add(new_blog)
             db.session.commit()
             blog_id = Blog.query.order_by(Blog.id.desc()).first()
@@ -168,8 +170,8 @@ def new_blogs():
             
             return redirect('/blog?id={}&user={}'.format(blog_id.id, user.username))
 
-        return render_template('newpost.html', title = "Add a new blog", blog_title = blog_title, 
-               blog_info = blog_info, error_title = error_title, error_info = error_info)
+             
+        return render_template('newpost.html', title = " Blogz", blog_title = blog_title, blog_body = blog_body, error_title = error_title, error_body = error_body)
      
         
 
