@@ -85,7 +85,7 @@ def login():
             error_pwd = 'Enter your password'
 
         if user and user.password != password:
-            password_error = "Incorrect password"
+            error_pwd = "Incorrect password"
         
         if user and user.password != password:
             session['username'] = username
@@ -107,7 +107,7 @@ def signup():
 
     if request.method == 'POST':
 
-        username = request.form['usename']
+        username = request.form['username']
         password = request.form['password']
         verify = request.form ['verify']
         
@@ -116,7 +116,7 @@ def signup():
     if len (username) < 3:
         error_username= 'Username must be a minimum of 3 characters'
         if username == "":
-            error_username == "Please Enter A Username "
+            error_username = "Please Enter A Username "
 
         if password != verify:
             error_pwd = "Passwords must match"
@@ -169,7 +169,7 @@ def new_blogs():
             return redirect('/blog?id={}&user={}'.format(blog_id.id, user.username))
 
         return render_template('newpost.html', title = "Add a new blog", blog_title = blog_title, 
-               blog_info = blog_info, error_title = error_title, error_info = error_infp)
+               blog_info = blog_info, error_title = error_title, error_info = error_info)
      
         
 
