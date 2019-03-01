@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Check out these Blogs</h1>
+    <ul>
+        {% for entry in all_blogs %}
+            <li>
+                <h2>
+                    <a href="/blog?id = {{title}}"></a>
+                </h2>
+                <p class='entry'>{{body}}</p>
+                <p class='author'>Created by: <a href="./blog?applicant_id={{sin_blog.applicant}}">{{sin_blog.applicant.username}}</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>New Post</h2>
+
+    <ul>
+        {% for blog in completed_posts %}
+        <li>{{blog.name}}</li>
+        {% endfor %}
+    </ul>
+
+    
+{% endblock %}
