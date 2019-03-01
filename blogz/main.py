@@ -136,7 +136,7 @@ def signup():
                 return redirect('/newpost')
             else:
                 error_username = "Username already in use"
-    return render_template('signup.html', username=username, error_username= error_username, 
+return render_template('signup.html', username=username, error_username= error_username, 
            error_pwd = error_pwd, error_verify= error_verify)
 
 
