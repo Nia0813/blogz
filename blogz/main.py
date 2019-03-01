@@ -41,7 +41,7 @@ def require_login():
 @app.route('/', methods=['POST','GET'])
 def index():
     all_users = User.query.all()
-    return render_template('index.html', users = users)
+    return render_template('index.html', all_users = all_users)
 
 #blog displays post
 @app.route('/blog', methods = ['POST','GET'])
@@ -60,8 +60,8 @@ def blog_list():
         blog = Blog.query.filter_by (applicant_id = user_id).all()
         return render_template('blogs.html', title = title, blog = blog)
 
-else:
-    blog = Blog.query.order_by(Blog.id.desc()).all()
+    else:
+        blog = Blog.query.order_by(Blog.id.desc()).all()
     return render_template('blogs.html', title = title, blog = blog)
 
 @app.route('/login', methods = ['POST', 'GET'])
