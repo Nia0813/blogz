@@ -7,11 +7,11 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8889/blogz'
 app.config['SQLAlCHEMY_ECHO'] = True #turns on query logging
 db = SQLAlchemy(app)#connects the constructor to the app
-app_secret_key = 'za997kGcys&zP3A'
+app.secret_key = 'za997kGcys&zP3A'
 
 class Blog(db.Model):# extends the blog class to the database model class
 
-    id = db.Column(db.Integer, primary_key=True)#this will be an integer in this column unique to each blog
+    id = db.Column(db.Integer, primary_key = True)#this will be an integer in this column unique to each blog
     title = db.Column (db.String (120))#title of blog that is created with 120 varchar max
     body = db.Column(db.Text())# the body of the blog with 1000 varchar max
     applicant_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -131,7 +131,7 @@ def signup():
             
         if not error_username and not error_pwd and not error_verify:
             if not existing_user:
-                new_user = User(username, password)
+                new_user = User(username, password,verify)
                 db.session.add(new_user)
                 db.session.commit()
                 session['username'] = username
